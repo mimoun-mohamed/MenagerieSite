@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Manage Annimals</title>
+</head>
+
+<body>
+    <div class="container py-2 border bg-secondary">
+        <div class="row align-items-center px-4">
+            <h1 class="col">Pet Shop Manager</h1>
+            <div class="col-3">
+                <a class="btn btn-primary btn-lg" href="{% url 'lamenageriemanager:index' %}">Main Menu</a>
+            </div>
+        </div>
+
+        <div class="row px-2 py-2">
+            <div class="col-3 px-2">
+                <div class="px-2 border bg-light">
+                    <h5 align="center">Add New Animal:</h5>
+                    <form action="{% url 'lamenageriemanager:animal_add' %}" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group">
+                                {{ field.errors }}
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <input class="btn btn-primary" type="submit" value="Add">
+                    </form>
+                </div>
+            </div>
+
+            <div class="col px-2">
+                {% if animals_list %}
+                    {% for animal in animals_list %}
+                        <div class="m-1 px-2 py-2 border bg-light">
+                            <div class="row">
+                                <div class="col">
+                                    <h3>{{ animal.name }}</h3>
+                                </div>
+                                <div class="col" align="center">
+                                    {{ animal.place }}
+                                </div>
+                                <div class="col" align="center">
+                                    <h4>{{ animal.state }}</h4>
+                                </div>
+                                <div class="col" align="right">
+                                    <a class="btn btn-success" href="{% url 'lamenageriemanager:animal_detail' animal.id %}">Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <p>No animals are available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+

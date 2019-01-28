@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Detail : {{ animal.name }}</title>
+</head>
+
+<body>
+    <div class="container py-2 border bg-secondary">
+        <div class="row align-items-center px-4">
+            <h1 class="col">Pet Shop Manager</h1>
+            <div class="col-3">
+                <a class="btn btn-primary btn-lg" href="{% url 'lamenageriemanager:index' %}">Main Menu</a>
+            </div>
+        </div>
+
+        <div class="row px-2 py-2">
+            <div class="col px-2">
+                {% if animal %}
+                    <div class="m-1 px-2 py-2 border bg-light">
+                        {% if error_message %}
+                            <div class="row text-danger">
+                                <p class="col"><strong>{{ error_message }}</strong></p>
+                            </div>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col">
+                                <h1>{{ animal.name }}</h1>
+                                type : {{ animal.type }} <br>
+                                Race : {{ animal.race }} <br>
+                                State : {{ animal.state }}<br>
+                                Place : {{ animal.place}} <br>
+                            </div>
+                            <div class="col">
+                                    <div class="row py-2">
+                                        <form action="{% url 'lamenageriemanager:feed' animal.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button class="btn btn-secondary btn-lg" type="submit">Feed</button>
+                                        </form>
+                                    </div>
+                                    <div class="row py-2">
+                                        <form action="{% url 'lamenageriemanager:entertain' animal.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button class="btn btn-secondary btn-lg" type="submit">Entertain</button>
+                                        </form>
+                                    </div>
+                                    <div class="row py-2">
+                                        <form action="{% url 'lamenageriemanager:sleep' animal.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button class="btn btn-secondary btn-lg" type="submit">Sleep</button>
+                                        </form>
+                                        </div>
+                                    <div class="row py-2">
+                                        <form action="{% url 'lamenageriemanager:wake_up' animal.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button class="btn btn-secondary btn-lg" type="submit">Wake Up</button>
+                                        </form>
+                                    </div>
+                            </div>
+                {% else %}
+                        <p>No animals are available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

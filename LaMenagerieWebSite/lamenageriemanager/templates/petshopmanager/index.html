@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Index</title>
+</head>
+
+<body>
+    <div class="container py-2 border bg-secondary">
+        <div class="row px-4">
+                <h1 class="col">Pet Shop Manager</h1>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-primary btn-lg btn-block" href ="{% url 'lamenageriemanager:animals_list' %}" >View All Animals</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-primary btn-lg btn-block" href="{% url 'lamenageriemanager:equipments_list' %}" >Manage Equipment</a>
+            </div>
+        </div>
+
+        <div class="row px-4 py-3">
+            <h3 class="col">Animals in need of care:</h3>
+        </div>
+
+        <div class="row px-2">
+                {% if animals_list %}
+                    {% for animal in animals_list %}
+                        <div class="col-lg-4 col-md-6 px-1 py-1">
+                            <div class="px-2 py-2 border bg-light">
+                                <div class="row">
+                                    <div class="col">
+                                        <h2><a href="{% url 'lamenageriemanager:animal_detail' animal.id %}">{{ animal.name }}</a></h2>
+                                        {{ animal.place }}
+                                    </div>
+                                    <div class="col">
+                                        <h3 class="col" align="right">{{ animal.state }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <p>No animals are available</p>
+                    </div>
+                {% endif %}
+        </div>
+    </div>
+</body>
+</html>
